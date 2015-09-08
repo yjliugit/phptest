@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Testing websockets</title>
+</head>
+<body>
+  <div>
+    <input type="submit" value="Start" onclick="start()" />
+  </div>
+  <div id="messages"></div>
+  <script type="text/javascript">
+    var webSocket =
+      new WebSocket('wss://anchora.tiger.mopaas.com/web/app/streamlog/ssss/f/L/undefined');
+    // new WebSocket('ws://localhost:8084/paas_api/api/app/streamlog/aadd/jmwusecretkey');
+   // new WebSocket('ws://www.aws.mopaas.com/web/app/streamlog/testphp/f/L/undefined');
+//   new WebSocket('ws://192.168.7.241:8085/paas_git/test/Clone/Mvn/name/version/github/https:==github.com=pagseguro=java.git/desenvolvimento');
+  // new WebSocket('ws://anchora.tiger.mopaas.com/web/sync/app/clone/mvn/name/version/github/https:==github.com=pagseguro=java.git/desenvolvimento');
+  //new WebSocket('ws://anchora.tiger.mopaas.com/web/sync/app/clone/mvn/name/version/github/https:==git.oschina.net=your_sister=hahaha.git/123');
+    webSocket.onerror = function(event) {
+      onError(event)
+    };
+ 
+    webSocket.onopen = function(event) {
+      onOpen(event)
+    };
+ 
+    webSocket.onmessage = function(event) {
+      onMessage(event)
+    };
+ 
+    function onMessage(event) {
+      document.getElementById('messages').innerHTML
+        += '<br />' + event.data;
+    }
+ 
+    function onOpen(event) {
+      document.getElementById('messages').innerHTML
+        = 'Connection established';
+    }
+ 
+    function onError(event) {
+      alert(event.data);
+    }
+ 
+    function start() {
+      webSocket.send('hello');
+      return false;
+    }
+  </script>
+</body>
+</html>
